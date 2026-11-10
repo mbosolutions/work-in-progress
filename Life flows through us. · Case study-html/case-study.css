@@ -1,0 +1,725 @@
+/* ==========================================================================
+   Life flows through us. · case study
+   project/case-study.css · one long, image-led page (Main.dc.html)
+
+   Dark ground, full-bleed images, small type. The tee's print blue is the
+   only accent. Inter carries the page; Minion Pro Semibold is kept for the
+   campaign's own line, the way it's set on the tee and the tag.
+
+   Every image you haven't made yet is a .shot: a placeholder at its final
+   ratio that says what to shoot and names the file. Swap it for
+   <div class="media r-…"><img class="media__img" src="…" alt="…"></div>.
+
+   1 Tokens · 2 Base · 3 Hero · 4 Shots and media · 5 Intro and tools
+   6 Chapters · 7 Modules · 8 Closing · 9 Responsive
+   ========================================================================== */
+
+
+/* 1  Tokens ---------------------------------------------------------------- */
+
+:root {
+  /* Ground */
+  --bg: #0B0C0E;
+  --panel: #121417;          /* bands that hold modules */
+  --line: #25282D;           /* hairlines */
+
+  /* Text */
+  --fg: #F2F2F0;             /* titles and values: 18:1 on --bg */
+  --fg-body: #C3C7CD;        /* paragraphs: 11.5:1 */
+  --fg-2: #8D9299;           /* labels and meta: 6.4:1 */
+
+  /* Accent: the print blue from the tees */
+  --blue: #1E90FF;           /* 5.7:1 on --bg */
+  --on-blue: #0B0C0E;        /* text on blue: 6.5:1 */
+
+  /* Shot colors: the backdrops each placeholder asks for */
+  --cobalt: #2B58B8;         /* Georgia */
+  --teal: #1F6F63;           /* Massachusetts */
+  --tomato: #C62E17;         /* Arizona */
+  --dark: #1A1C20;           /* night and interior scenes */
+  --warm: #2B241E;           /* cork, wood, warm interiors */
+
+  /* Type */
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: "Inter Display", "Inter", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --serif: "Minion Pro", "Minion", "Iowan Old Style", Georgia, serif;
+
+  --fs-title: clamp(2.375rem, 3.8889vw, 3.5rem);        /* 56  intro title */
+  --fs-stat: clamp(4rem, 10vw, 9rem);                  /* 144 big numbers */
+  --fs-statement: clamp(2.375rem, 6.6667vw, 6rem);     /* 96  the insight */
+  --fs-closing: clamp(2.25rem, 6.1111vw, 5.5rem);      /* 88  the last line */
+  --fs-h3: clamp(1.25rem, 1.6667vw, 1.5rem);           /* 24  module titles */
+  --fs-lead: clamp(1.0625rem, 1.25vw, 1.125rem);       /* 18  short statements */
+  --fs-body: 0.9375rem;                                /* 15  paragraphs */
+  --fs-small: 0.8125rem;                               /* 13  captions, meta */
+  --fs-micro: 0.6875rem;                               /* 11  shot labels */
+
+  /* Space */
+  --wrap: 1120px;
+  --side: clamp(20px, 5.5556vw, 80px);
+  --gap: 4px;                                          /* gutters between full-bleed images */
+  --section: clamp(72px, 8.8889vw, 128px);             /* padding of text chapters */
+  --col-gap: clamp(20px, 3.3333vw, 48px);
+
+  /* Print texture for every flat colour: a fine film grain (light and dark
+     specks with a little alpha, so it never tints the colour) and a faint
+     halftone dot screen at 45°.                                           */
+  --grain-fine: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch' result='n'/%3E%3CfeColorMatrix in='n' type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .25 0 0 0 -.125' result='w'/%3E%3CfeColorMatrix in='n' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -.45 0 0 0 .225' result='k'/%3E%3CfeMerge%3E%3CfeMergeNode in='k'/%3E%3CfeMergeNode in='w'/%3E%3C/feMerge%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+
+  /* Grain for the placeholders */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+
+/* 2  Base ------------------------------------------------------------------ */
+
+*, *::before, *::after { box-sizing: border-box; }
+:where(.cs) :where(h1, h2, h3, h4, p, ul, ol, dl, dt, dd, figure, blockquote) { margin: 0; padding: 0; }
+:where(.cs) :where(ul, ol) { list-style: none; }
+:where(.cs) :where(img) { display: block; max-width: 100%; }
+:where(.cs) :where(a) { color: inherit; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
+:where(.cs) :where(a:focus-visible) { outline: 2px solid var(--blue); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .cs * { animation: none !important; transition: none !important; }
+  .cs .hero.is-held .hero__media, .cs .hero.is-held .hero__logo, .cs .hero.is-held .hero__line { opacity: 1; }
+  .cs .hero__line { -webkit-mask-image: none; mask-image: none; }
+  .cs .edge-blur { display: none; }
+  .cs .hero__light { display: none; }
+}
+
+.cs {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  font-feature-settings: "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  overflow-x: clip;          /* clips like hidden without becoming a scroller, so scroll effects track the page */
+}
+.wrap { width: min(var(--wrap), 100% - 2 * var(--side)); margin-inline: auto; }
+.word { font-family: var(--serif); font-weight: 600; letter-spacing: -0.02em; }   /* the campaign line */
+.ph { text-decoration-line: underline; text-decoration-style: dashed; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+
+/* Grain and halftone on every flat colour (the ground, the panels, the blue
+   bands, the label bars, the phones). Photos and placeholders keep their own.
+   Light dots on the dark colours, dark dots on the blue and the light bars. */
+.cs, .stories, .spot, .tools, .statement, .bar, .phone, .hero__media, .hero__media::after {
+  --dot-ink: rgba(255, 255, 255, 0.055);
+  background-image:
+    var(--grain-fine),
+    radial-gradient(circle, var(--dot-ink) 0 0.8px, rgba(0, 0, 0, 0) 1.3px),
+    radial-gradient(circle, var(--dot-ink) 0 0.8px, rgba(0, 0, 0, 0) 1.3px);
+  background-size: 180px 180px, 6px 6px, 6px 6px;
+  background-position: 0 0, 0 0, 3px 3px;
+}
+.tools, .statement, .bar { --dot-ink: rgba(0, 0, 0, 0.08); }
+/* The photo's foot fades into the ground inside the image itself, so the
+   same texture is laid over that foot; it picks up exactly where the
+   page's own texture continues below the photo.                           */
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 80%, #000 94%);
+  mask-image: linear-gradient(to bottom, transparent 80%, #000 94%);
+}
+
+
+/* 3  Hero: the photo, the top bar over it, the lockup and line at its foot */
+
+/* Two layers. The photo (2967 × 2102, already fading into the ground at
+   its foot) fills the hero; on scroll it zooms, blurs and fades. The
+   lockup and the line sit on top, pinned to the photo's bottom-left
+   corner, and scroll with the page.
+   The hero is as tall as the photo, but never taller than the window, so
+   on first load the lockup and line always sit in the bottom corner of
+   the screen. In a tall frame (the canvas) the photo shows whole and the
+   lockup lands exactly where it was printed in the old photo: its top at
+   54.61vw, its left edge at 1.887vw.
+   Every size is a share of the width; below 640px the line breaks in two. */
+.hero {
+  --f: calc(1s / 12);                  /* one frame at 12 fps */
+  position: relative;
+  /* The frame. Full width, unless the window is so wide and short that
+     fitting the hero to its height would crop away more than about a
+     quarter of the photo: then the frame narrows (centred) so at least 72%
+     of the photo's height always shows, and the lockup and line still
+     land in the bottom corner on first load. Everything inside is sized
+     in cqw, a share of this frame's width.                               */
+  width: min(100%, 186svh);
+  margin-inline: auto;
+  container-type: inline-size;
+}
+.hero__media {
+  position: relative;
+  overflow: hidden;
+  overflow: clip;
+  height: max(26cqw, min(100vh - 2.5cqw, 70.846cqw));
+  height: max(26cqw, min(100svh - 2.5cqw, 70.846cqw));
+  background-color: var(--bg);
+  animation: develop 0.7s ease-out 0.1s both;
+}
+.hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0;              /* a short window trims the faded foot, never the shirts */
+  transform-origin: 44% calc(100% - 5.7cqw);   /* the middle of the line: the zoom pushes in on the headline */
+}
+/* a shade at the foot, so the line reads however much of the photo the window trims */
+.hero__media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(11, 12, 14, 0) 50%, rgba(11, 12, 14, 0.45) 78%, rgba(11, 12, 14, 0.9) 96%, #0B0C0E 100%);
+}
+
+/* When the frame is narrower than the window, the photo's sides fade into the ground */
+@media (min-aspect-ratio: 186 / 100) {
+  .hero__media {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  }
+}
+
+/* The two corner marks: name top left, concept and year top right, both
+   inset by the same distance as the line, from the top and the sides     */
+.topbar {
+  --inset: max(1.887cqw, 16px);
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--inset) var(--inset) 44px;
+  background: linear-gradient(to bottom, rgba(11, 12, 14, 0.55), rgba(11, 12, 14, 0));
+  color: #FFFFFF;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  font-variant-numeric: tabular-nums;
+}
+.topbar__item { white-space: nowrap; }
+.topbar__gap { display: inline-block; width: 0.9em; }
+
+/* The lockup: 16.24vw above the photo's foot, 13.95vw wide (2270 × 691) */
+.hero__logo {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 13.95cqw;
+  height: auto;
+  margin: -16.24cqw 0 0 1.887cqw;
+  animation: logo-in 0.5s ease-out 0.4s both;
+}
+@keyframes logo-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* The line: your colour-halftone artwork (2688 × 362), cut at the word gap
+   into "Life flows" (1226 px) and "through us." (1462 px) so it can break
+   in two on phones. Scaled so its letters span the same 82.6vw the set
+   line did (L to full stop, 2636 px): the L's top sits 3.03vw under the
+   lockup, and the visible left edge of the L, halftone bleed included,
+   lines up with the lockup's left edge.                                   */
+.hero__title {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  margin: 1.963cqw 0 0.84cqw 1.479cqw;
+}
+/* On load the line is printed in: a coarse halftone screen sweeps left to
+   right in 12 held frames at 12 fps. Behind the sweep the dots have grown
+   solid, ahead of it they shrink to nothing, and the screen jumps a little
+   every frame, like a hand-registered print. The frames are a sprite in
+   each line's mask (set in the artboard's helmet); the last frame is
+   solid, so once it lands the artwork shows exactly as made.             */
+.hero__line {
+  display: block;
+  flex: none;
+  width: auto;
+  max-width: none;
+  height: 11.34cqw;
+  -webkit-mask-size: 100% 1200%;
+  mask-size: 100% 1200%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 0 100%;
+  mask-position: 0 100%;
+  animation: halftone-in 1s steps(12, jump-none) 0.5s both;
+}
+@keyframes halftone-in {
+  from { -webkit-mask-position: 0 0%; mask-position: 0 0%; }
+  to   { -webkit-mask-position: 0 100%; mask-position: 0 100%; }
+}
+
+/* Set by the artboard's script: hold everything until the images are in */
+.hero.is-held .hero__media, .hero.is-held .hero__logo, .hero.is-held .hero__line { animation: none; opacity: 0; }
+.hero.is-on .hero__media { animation-delay: 0s; }
+
+/* The photo fades in where it sits: no movement, so it lands exactly in place */
+@keyframes develop {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+/* Sun through the leaves: two copies of a dappled-light texture sway at
+   different speeds over the photo, blended soft-light, so patches of light
+   slide across the shirts and grass the way they would in a breeze. It
+   fades out above the lockup, so the logo and the line stay still.        */
+.hero__light {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  overflow: clip;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  opacity: 1;                          /* constant: only the patches move, never the whole frame */
+  filter: contrast(1.75);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 76%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 76%);
+}
+.hero__dapple {
+  position: absolute;
+  left: -14%;
+  top: -14%;
+  width: 128%;
+  height: 128%;
+  max-width: none;
+  object-fit: cover;
+  will-change: transform;
+  animation: leaves-a 19s ease-in-out infinite;
+}
+/* The leaf light changes how bright the photo is, never how colourful. A
+   soft-light shadow on its own pushes the colour (the grass goes acid, the
+   skin goes orange), so a second copy of the photo sits over the light,
+   blended "color": it puts the photo's own hue and saturation back over the
+   lit result, and the shade only darkens. It shares the photo's class, so it
+   zooms, blurs and fades with it exactly.                                  */
+.hero__tint { mix-blend-mode: color; pointer-events: none; }
+/* the second canopy sways the other way, so light opens up in one spot while it closes in another */
+.hero__dapple--b { opacity: 0.85; animation: leaves-b 13s ease-in-out infinite; }
+@keyframes leaves-a {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  27%      { transform: translate(-4%, 2%) rotate(-1.9deg); }
+  55%      { transform: translate(-1%, -3%) rotate(0.9deg); }
+  80%      { transform: translate(3.2%, 0.8%) rotate(1.6deg); }
+}
+@keyframes leaves-b {
+  0%, 100% { transform: scaleX(-1) translate(0, 0) rotate(0deg); }
+  38%      { transform: scaleX(-1) translate(4.2%, 2.5%) rotate(2.2deg); }
+  72%      { transform: scaleX(-1) translate(-2.8%, -1.8%) rotate(-1.4deg); }
+}
+
+/* A slight blur along the bottom of the window while you read: what is
+   coming up sits just out of focus and sharpens as it rises. It only
+   exists while the page is scrolling: it fades in as you leave the hero
+   and out before the end, so the footer is always sharp, and a window that
+   doesn't scroll (the canvas) never shows it.                             */
+.edge-blur {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  height: clamp(80px, 9.7222vw, 140px);
+  pointer-events: none;
+  opacity: 0;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 100%);
+}
+@supports (animation-timeline: scroll()) {
+  .edge-blur { animation: edge-blur linear both; animation-timeline: scroll(root); }
+}
+@keyframes edge-blur {
+  0%   { opacity: 0; }
+  5%   { opacity: 1; }
+  94%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* On scroll the camera pulls focus onto the line: the photo zooms in on
+   the headline, blurs and fades into the ground, the leaf shadows fade
+   first, and the line stays sharp and carries on into the about section. */
+@supports (animation-timeline: view()) {
+  .hero { view-timeline: --hero block; }
+  .hero__img { animation: hero-out linear both; animation-timeline: --hero; animation-range: exit-crossing 0% exit-crossing 100%; }
+  .hero__light { animation: light-out linear both; animation-timeline: --hero; animation-range: exit-crossing 0% exit-crossing 40%; }
+}
+@keyframes light-out { to { opacity: 0; } }
+/* the zoom starts gently while the line is still sharp, then pushes in hard as it all goes soft */
+@keyframes hero-out {
+  0%, 10% { transform: none; opacity: 1; filter: none; }
+  30%  { transform: scale(1.04); }
+  100% { transform: scale(1.3); opacity: 0.2; filter: blur(16px); }
+}
+
+
+/* 4  Shots (placeholders) and media ---------------------------------------- */
+
+/* .shot: a placeholder at its final ratio. It names the file and says what to shoot. */
+.shot {
+  --c: var(--dark);
+  --c-hi: #24272C;
+  --c-lo: #121316;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(120% 95% at 50% 32%, var(--c-hi) 0%, var(--c) 52%, var(--c-lo) 100%);
+  color: #FFFFFF;
+}
+.shot::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); background-size: 220px; opacity: 0.16; mix-blend-mode: overlay; pointer-events: none; }
+.shot--cobalt { --c: var(--cobalt); --c-hi: #3566C9; --c-lo: #1E4189; }
+.shot--teal { --c: var(--teal); --c-hi: #26806F; --c-lo: #144A42; }
+.shot--tomato { --c: var(--tomato); --c-hi: #D2391F; --c-lo: #8E200F; }
+.shot--warm { --c: var(--warm); --c-hi: #3A3028; --c-lo: #1C1814; }
+.shot--three { background: linear-gradient(90deg, var(--cobalt) 0 33.333%, var(--teal) 33.333% 66.666%, var(--tomato) 66.666% 100%); }
+
+.shot__frame {
+  position: absolute;
+  inset: clamp(10px, 1.1111vw, 16px);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(14px, 1.6667vw, 24px);
+  border: 1px dashed rgba(255, 255, 255, 0.34);
+}
+.shot__meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: var(--fs-micro); font-weight: 500; line-height: 1.3; letter-spacing: 0.08em; text-transform: uppercase; }
+.shot__body { max-width: 30em; }
+.shot__title { margin-bottom: 6px; font-family: var(--display); font-weight: 500; font-size: clamp(1.0625rem, 1.6667vw, 1.5rem); line-height: 1.15; letter-spacing: -0.01em; }
+.shot__desc { font-size: clamp(0.8125rem, 0.9722vw, 0.875rem); line-height: 1.5; }
+.shot--sm .shot__title { font-size: clamp(1rem, 1.25vw, 1.125rem); }
+.shot--sm .shot__desc { font-size: var(--fs-small); }
+.shot--lg .shot__body { max-width: 34em; }
+.shot--lg .shot__title { font-size: clamp(1.25rem, 2.2222vw, 2rem); }
+.shot--lg .shot__desc { font-size: clamp(0.875rem, 1.1111vw, 1rem); }
+
+/* Ratios */
+.r-16x9 { aspect-ratio: 16 / 9; }
+.r-21x9 { aspect-ratio: 21 / 9; }
+.r-3x2 { aspect-ratio: 3 / 2; }
+.r-4x3 { aspect-ratio: 4 / 3; }
+.r-4x5 { aspect-ratio: 4 / 5; }
+.r-1x1 { aspect-ratio: 1 / 1; }
+.r-9x16 { aspect-ratio: 9 / 16; }
+.r-a4 { aspect-ratio: 2967 / 2102; }                 /* the tag mockup, about A4 landscape */
+
+/* .media: a real image */
+.media { position: relative; overflow: hidden; background-color: var(--panel); }
+.media__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* A full-bleed image row */
+.row { display: grid; gap: var(--gap); margin-top: var(--gap); }
+
+/* Caption under an image or a row */
+.cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px; padding: 18px 0 0; font-size: var(--fs-small); line-height: 1.5; color: var(--fg-2); }
+.cap strong { font-weight: 500; color: var(--fg); }
+.cap__file { font-size: var(--fs-micro); letter-spacing: 0.08em; text-transform: uppercase; }
+/* The Idea: one pair per state, the tee beside its bandage, sides
+   alternating down the page. Columns of 9 : 16 make the square and the
+   16:9 frame exactly the same height, so neither image is cropped. The
+   state's caption sits in the black under the tees.                       */
+.pairs { display: grid; gap: var(--gap); }
+.pair { display: grid; grid-template-columns: minmax(0, 9fr) minmax(0, 16fr); gap: var(--gap); margin: 0; }
+.pair > .pair__tee, .pair > .pair__cap { grid-area: 1 / 1; }
+.pair > .pair__macro { grid-area: 1 / 2; }
+.pair--flip { grid-template-columns: minmax(0, 16fr) minmax(0, 9fr); }
+.pair--flip > .pair__tee, .pair--flip > .pair__cap { grid-area: 1 / 2; }
+.pair--flip > .pair__macro { grid-area: 1 / 1; }
+.pair__cap {
+  z-index: 1;
+  align-self: end;
+  justify-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 26em;
+  padding: clamp(14px, 1.6667vw, 24px);
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: var(--fg-2);
+}
+.pair__cap strong { font-weight: 500; color: var(--fg); }
+.pairs + .cap { padding-top: 22px; }
+
+/* The Proof: the tag large, the two detail shots stacked beside it. The
+   tag sets the height and the shots split it.                             */
+.bento { display: grid; grid-template-columns: minmax(0, 2.8235fr) minmax(0, 1fr); grid-template-rows: 1fr 1fr auto; gap: var(--gap); margin: 0; }
+.bento > .bento__main { grid-row: 1 / 3; }
+.bento > .shot { aspect-ratio: auto; }
+.bento > figcaption { grid-column: 1 / -1; }
+
+
+/* 5  Intro and tools ------------------------------------------------------- */
+
+.about-frame { width: min(100%, 186svh); margin-inline: auto; container-type: inline-size; }
+
+/* About, objective and the facts sit right under the line, three columns
+   that start at its left edge and end where it ends */
+.about {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: 40px;
+  width: 82.64cqw;                     /* the line's width, L to full stop */
+  margin-left: max(1.887cqw, 16px);    /* the line's left edge */
+  padding: clamp(24px, 2.2222vw, 32px) 0 var(--section);
+  position: relative;                  /* rides over the photo's dark foot */
+  z-index: 1;
+}
+.about__col { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.about .meta { margin-top: 0; }
+/* The inverted label bar: dark type on a light strip */
+.bar { padding: 3px 7px; background-color: var(--fg); color: var(--bg); font-size: var(--fs-small); font-weight: 500; line-height: 1.4; }
+.intro__p { color: var(--fg-body); text-align: justify; hyphens: auto; }
+.keep { -webkit-hyphens: manual; hyphens: manual; }   /* a phrase that never splits across a hyphen */
+.meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--col-gap); margin-top: 18px; }
+.meta__col { display: flex; flex-direction: column; gap: 14px; }
+.meta dt { font-size: var(--fs-small); color: var(--fg-2); }
+.meta dd { font-size: var(--fs-small); font-weight: 500; line-height: 1.5; }
+.meta__list { display: flex; flex-direction: column; gap: 2px; font-size: var(--fs-small); font-weight: 500; }
+
+/* The tools band, in the print blue */
+.tools { background-color: var(--blue); color: var(--on-blue); }
+.tools__list { display: flex; justify-content: space-between; align-items: center; min-height: 88px; padding: 18px 0; gap: 24px; }
+.tool { display: flex; align-items: center; gap: 12px; font-size: var(--fs-small); font-weight: 500; line-height: 1.2; }
+.tool__logo { flex: none; display: block; width: 32px; height: 32px; }   /* the app icons, already cut to rounded tiles */
+
+
+/* 6  Chapters: title at the left, two short columns of text -------------- */
+
+.chapter { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 20px; padding: var(--section) 0; }
+.chapter__title { font-size: var(--fs-body); font-weight: 500; line-height: 1.6; }
+.chapter__title span { text-decoration-line: underline; text-decoration-color: var(--blue); text-decoration-thickness: 2px; text-underline-offset: 7px; }
+.chapter__p { color: var(--fg-body); text-align: justify; hyphens: auto; }
+/* The brief: one row per paragraph on the 12-column grid. Right (columns
+   8 to 12): the copy as three justified rectangles, one blank line apart.
+   The title has its own row above. Left (columns 1 to 6): each number centred on
+   its paragraph, its caption beside it on the number's baseline; the
+   sources under the last. The numbers are Minion Pro Bold. The page
+   script squares each paragraph's last line (narrowing all three a few
+   pixels from the left with --brief-inset when it has to) and sets each
+   number's translate so its digits sit on its paragraph's middle; the
+   --stat-nudge below is only the fallback for when the script hasn't run. */
+.brief {
+  --brief-size: clamp(1.125rem, 1.3889vw, 1.25rem);
+  --stat-size: clamp(4.5rem, 8.75vw, 7.875rem);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  --stat-nudge: 0.095;
+  row-gap: calc(var(--brief-size) * 1.7);
+}
+.brief > .chapter__title { grid-column: 1 / -1; grid-row: 1; align-self: start; }
+.brief__p { grid-column: 8 / 13; position: relative; margin-left: var(--brief-inset, 0px); font-size: var(--brief-size); line-height: 1.7; }
+.brief__p--1 { grid-row: 2; }
+.brief__p--2 { grid-row: 3; }
+.brief__p--3 { grid-row: 4; }
+.brief__stat { grid-column: 1 / 7; align-self: center; translate: 0 calc(var(--stat-size) * var(--stat-nudge, 0)); }
+.brief__stat--1 { grid-row: 2; }
+.brief__stat--2 { grid-row: 3; }
+.brief__stat--3 { grid-row: 4; }
+.brief .stats__src { grid-column: 1 / 7; grid-row: 5; margin-top: 0; }
+.brief .stat { display: grid; grid-template-columns: calc(var(--stat-size) * 2.02) minmax(0, 1fr); column-gap: clamp(16px, 1.6667vw, 24px); align-items: end; align-items: last baseline; }
+.brief .stat__num { font-family: var(--serif); font-weight: 700; font-size: var(--stat-size); letter-spacing: -0.01em; }   /* Minion Pro Bold */
+/* Printed like the line in the hero: the blue carries a fine three-colour
+   dot screen (yellow, cyan and magenta at their own angles, 2.5 px apart,
+   the hero artwork's screen at its size on the page), and the edges bleed
+   softly through the #bleed filter in the page. The padding (cancelled by
+   the margin) gives the italic overhang and the descender of the y room,
+   so the screen reaches every bit of every letter.                         */
+.brief .stat__num {
+  padding: 0.12em 0.14em 0.24em;
+  margin: -0.12em -0.14em -0.24em;
+  background-image: url("./assets/fc6e0cc21cdf82a1d3c13ab666365e58.png"), linear-gradient(var(--blue), var(--blue));
+  background-size: 51.54px 51.54px, auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: url(#bleed);
+}
+.fx { position: absolute; width: 0; height: 0; overflow: hidden; }
+.brief .stat__cap { max-width: 17em; }
+
+/* "missed the mark": underlined in the print blue; hover it (or tab to it)
+   and the Drop for Drop shirts appear on the left (columns 1 to 5, in line
+   with the numbers), centred on the paragraph.                              */
+.peek { color: var(--fg); white-space: nowrap; text-decoration-line: underline; text-decoration-color: var(--blue); text-decoration-thickness: 2px; text-underline-offset: 0.22em; outline: none; cursor: default; }
+.peek:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; border-radius: 2px; }
+.peek__card {
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  --full: calc(100% + var(--brief-inset, 0px));                                 /* columns 8 to 12 */
+  left: calc(-1 * (var(--brief-inset, 0px) + 7 * ((var(--full) - 4 * var(--col-gap)) / 5 + var(--col-gap))));   /* from column 1 */
+  width: var(--full);                                                                                             /* to column 5 */
+  aspect-ratio: 16 / 9;
+  background-color: var(--panel);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  translate: 0 calc(-50% + 10px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, translate 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.peek__card img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.peek:hover .peek__card, .peek:focus .peek__card { opacity: 1; translate: 0 -50%; }
+/* the 42% steps aside while the shirts are up, so no caption shows past them */
+.brief__stat { transition: opacity 0.25s ease; }
+@media (min-width: 641px) {
+  .brief:has(.peek:hover, .peek:focus) .brief__stat--2 { opacity: 0; }
+}
+
+
+/* 7  Modules --------------------------------------------------------------- */
+
+/* Big numbers */
+.stat { display: flex; flex-direction: column; gap: 14px; }
+.stat__num { font-family: var(--display); font-weight: 500; font-size: var(--fs-stat); line-height: 0.9; letter-spacing: -0.045em; color: var(--blue); font-variant-numeric: lining-nums; }
+.stat__cap { max-width: 18em; font-size: var(--fs-lead); line-height: 1.4; color: var(--fg); text-wrap: balance; }
+.stats__src { margin-top: clamp(40px, 4.4444vw, 64px); font-size: var(--fs-small); color: var(--fg-2); }
+
+/* The insight, on the print blue */
+.statement { background-color: var(--blue); color: var(--on-blue); padding: clamp(72px, 9.7222vw, 140px) 0 clamp(48px, 5.5556vw, 80px); }
+.statement__line { max-width: 11.5em; font-size: var(--fs-statement); line-height: 0.98; text-wrap: balance; }
+.statement__notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 16px; margin-top: clamp(56px, 7.7778vw, 112px); padding-top: 20px; border-top: 1px solid rgba(11, 12, 14, 0.4); font-size: var(--fs-small); line-height: 1.55; }
+.statement__src { align-self: end; }
+
+/* The ladder */
+.ladder { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--col-gap); padding-top: clamp(56px, 6.6667vw, 96px); }
+.step { display: flex; flex-direction: column; gap: 10px; padding-top: 22px; border-top: 1px solid var(--line); }
+.step:first-child { border-top-color: var(--blue); }
+.step__num { font-family: var(--display); font-weight: 500; font-size: clamp(2.5rem, 3.8889vw, 3.5rem); line-height: 1; letter-spacing: -0.03em; color: var(--blue); font-variant-numeric: tabular-nums; }
+.step__what { font-family: var(--display); font-weight: 500; font-size: var(--fs-h3); line-height: 1.2; letter-spacing: -0.01em; }
+.step__when { font-size: var(--fs-small); color: var(--fg-2); }
+.ladder__note { grid-column: 1 / -1; margin-top: 28px; font-size: var(--fs-small); color: var(--fg-2); }
+
+/* Stories: three phones on a panel */
+.stories { background-color: var(--panel); padding: clamp(56px, 6.6667vw, 96px) 0; margin-top: var(--gap); }
+.stories__row { display: flex; justify-content: center; gap: clamp(16px, 2.7778vw, 40px); }
+.phone { flex: 0 1 300px; border-radius: 30px; padding: 8px; background-color: #050506; box-shadow: 0 0 0 1px #2A2D33; }
+.phone .shot { border-radius: 23px; }
+.phone .shot__frame { border-radius: 16px; }
+.stories__cap { margin-top: 32px; text-align: center; font-size: var(--fs-small); color: var(--fg-2); }
+.stories__cap strong { font-weight: 500; color: var(--fg); }
+
+/* The spot: the vertical film in the middle, the beats around it */
+.spot { background-color: var(--panel); padding: clamp(56px, 6.6667vw, 96px) 0; margin-top: var(--gap); }
+.spot__head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; margin-bottom: clamp(40px, 4.4444vw, 64px); font-size: var(--fs-small); color: var(--fg-2); }
+.spot__head strong { font-weight: 500; color: var(--fg); }
+.spot__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 340px) minmax(0, 1fr); column-gap: clamp(24px, 4.4444vw, 64px); align-items: center; }
+.spot__beats { display: flex; flex-direction: column; gap: 44px; }
+.beat { display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 1px solid var(--line); }
+.beat__time { font-size: var(--fs-small); font-weight: 500; color: var(--blue); font-variant-numeric: tabular-nums; }
+.beat__line { font-size: var(--fs-h3); line-height: 1.25; }
+.beat__shot { font-size: var(--fs-small); color: var(--fg-2); }
+.spot__film { border-radius: 18px; }
+.spot__film .shot__frame { border-radius: 10px; }
+.spot__play { position: absolute; left: 50%; top: 50%; z-index: 2; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.92); }
+.spot__play::before { content: ""; position: absolute; left: 26px; top: 21px; border-style: solid; border-width: 11px 0 11px 18px; border-color: transparent transparent transparent var(--bg); }
+
+/* Rollout */
+.rollout { padding-bottom: var(--section); }
+.timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--col-gap); }
+.week { position: relative; display: flex; flex-direction: column; gap: 8px; padding-top: 26px; border-top: 1px solid var(--fg-2); }
+.week::before { content: ""; position: absolute; top: -6px; left: 0; width: 11px; height: 11px; border-radius: 50%; background-color: var(--blue); }
+.week__when { font-size: var(--fs-small); font-weight: 500; color: var(--blue); }
+.week__what { font-size: var(--fs-lead); line-height: 1.35; }
+.proofs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 40px; margin-top: clamp(64px, 7.7778vw, 112px); }
+.proof { display: flex; flex-direction: column; gap: 12px; }
+.proof__label { font-size: var(--fs-small); color: var(--fg-2); }
+.proof__big { font-family: var(--display); font-weight: 500; font-size: clamp(2rem, 3.3333vw, 3rem); line-height: 1.02; letter-spacing: -0.03em; color: var(--blue); text-wrap: balance; }
+.proof__text { color: var(--fg-body); }
+
+
+/* 8  Closing --------------------------------------------------------------- */
+
+.closing { padding: var(--section) 0 0; border-top: 1px solid var(--line); }
+.reflect { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 32px; }
+.reflect__item { display: flex; flex-direction: column; gap: 10px; }
+.reflect__item dt { font-size: var(--fs-small); color: var(--fg-2); }
+.reflect__item dd { font-size: var(--fs-lead); line-height: 1.45; }
+.closing__line { margin-top: clamp(80px, 11.1111vw, 160px); font-size: var(--fs-closing); line-height: 1; color: var(--blue); text-wrap: balance; }
+.contacts { display: flex; flex-wrap: wrap; gap: 8px 36px; margin-top: 40px; font-family: var(--display); font-weight: 500; font-size: clamp(1.125rem, 1.6667vw, 1.5rem); }
+.footer { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 24px; margin-top: clamp(80px, 11.1111vw, 160px); padding: 28px 0 36px; border-top: 1px solid var(--line); font-size: var(--fs-small); color: var(--fg-2); }
+.footer__fine { grid-column: 1 / 3; max-width: 44em; }
+.footer__year { justify-self: end; color: var(--fg); font-family: var(--display); font-weight: 500; }
+
+
+/* 9  Responsive ------------------------------------------------------------ */
+
+@media (max-width: 1024px) {
+  .pair__cap span { display: none; }
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; }
+  .bento > .bento__main { grid-column: 1 / -1; grid-row: auto; }
+  .bento > .shot { aspect-ratio: 1 / 1; }
+  .about { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .about__col:last-child { grid-column: 1 / -1; max-width: 40em; }
+  .chapter { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chapter__title { grid-column: 1 / -1; }
+  .brief { --stat-size: clamp(4rem, 10vw, 6.25rem); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .brief__stat, .brief .stats__src { grid-column: 1; }
+  .brief__p { grid-column: 2; }
+  .brief { --stat-nudge: 0.07; }
+  .peek__card { left: auto; right: calc(var(--brief-inset, 0px) + 100% + var(--col-gap)); width: var(--full); }
+  .tools__list { flex-wrap: wrap; justify-content: flex-start; column-gap: 40px; }
+  .statement__notes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .statement__src { grid-column: 1 / -1; }
+  .spot__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 300px); row-gap: 40px; align-items: start; }
+  .spot__film { grid-column: 2; grid-row: 1 / 3; }
+  .spot__beats { grid-column: 1; }
+  .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
+  .proofs { grid-template-columns: minmax(0, 1fr); max-width: 40em; }
+  .reflect { grid-template-columns: minmax(0, 1fr); max-width: 40em; }
+}
+
+@media (max-width: 640px) {
+  /* The bar sits above the photo, and the line breaks in two: the first
+     line over the photo's foot, the second on the ground below it */
+  .topbar { position: relative; padding-bottom: var(--inset); background: none; }
+  .hero__title { flex-direction: column; margin: 3.376cqw 0 3cqw 1.053cqw; }
+  .hero__line { height: 23.22cqw; }
+  .hero__line--2 { margin: -3.32cqw 0 0 0.385cqw; }
+  .about { grid-template-columns: minmax(0, 1fr); width: auto; margin-inline: max(1.887cqw, 16px); padding-top: 28px; }
+  .tools__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 24px; }
+  .meta { grid-template-columns: minmax(0, 1fr); row-gap: 14px; }
+  .chapter { grid-template-columns: minmax(0, 1fr); }
+  .brief { display: flex; flex-direction: column; gap: 28px; }
+  .brief > .chapter__title { order: 0; }
+  .brief__p { order: 1; }
+  .brief__p--3 { margin-bottom: 12px; }
+  .brief__stat { order: 2; translate: none; }
+  .brief .stats__src { order: 3; }
+  .peek { white-space: normal; }
+  .peek__card { top: auto; bottom: calc(100% + 14px); right: auto; left: 0; width: 100%; translate: 0 10px; }
+  .peek:hover .peek__card, .peek:focus .peek__card { translate: 0 0; }
+  .chapter__p, .intro__p { text-align: left; hyphens: manual; }
+  .ladder, .statement__notes, .timeline { grid-template-columns: minmax(0, 1fr); }
+  .pair, .pair--flip { grid-template-columns: minmax(0, 1fr); }
+  .pair > .pair__tee, .pair > .pair__cap, .pair--flip > .pair__tee, .pair--flip > .pair__cap { grid-area: 1 / 1; }
+  .pair > .pair__macro, .pair--flip > .pair__macro { grid-area: 2 / 1; }
+  .pair__cap span { display: block; }
+  .bento { grid-template-columns: minmax(0, 1fr); }
+  .stories__row { flex-direction: column; align-items: center; }
+  .phone { flex-basis: auto; width: min(300px, 100%); }
+  .spot__grid { grid-template-columns: minmax(0, 1fr); }
+  .spot__film { grid-column: 1; grid-row: auto; width: min(300px, 100%); justify-self: center; }
+  .spot__beats { grid-column: 1; }
+  .footer { grid-template-columns: minmax(0, 1fr); }
+  .footer__fine { grid-column: 1; }
+  .footer__year { justify-self: start; }
+  .shot__frame { inset: 10px; }
+}

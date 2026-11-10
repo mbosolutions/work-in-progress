@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Life flows through us. · Case study</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./case-study.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Inter";src:url("./assets/43cc5a30b6c0af919ab672ff162b0c80.woff") format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Inter";src:url("./assets/2a141fe64ccd8e0ad66b4d14201eda77.woff") format("woff");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Inter Display";src:url("./assets/a980f40bde962d44e0a8eeb80b076fc7.woff") format("woff");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Inter Display";src:url("./assets/37af40777eea08c77e7049bcd0a9a704.woff") format("woff");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Minion Pro";src:url("./assets/f888fc85399fbbf42055cdd117821dfd.otf") format("opentype");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Minion Pro";src:url("./assets/a03ada35c4e97c79ec1c1275bdaa185b.otf") format("opentype");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Minion Pro";src:url("./assets/9555684ab699a7881c9ba5bb64f28fac.otf") format("opentype");font-weight:700;font-style:italic;font-display:swap}
+.hero__line--1{-webkit-mask-image:url("./assets/f09c0ec3902bd957633832fa5ecf6dc3.png");mask-image:url("./assets/f09c0ec3902bd957633832fa5ecf6dc3.png")}
+.hero__line--2{-webkit-mask-image:url("./assets/6df86e43caf80051c41270a921bc1abf.png");mask-image:url("./assets/6df86e43caf80051c41270a921bc1abf.png")}
+body{margin:0;background:#0B0C0E}
+</style>
+</helmet>
+<!-- Life flows through us. · the whole case study as one page: the hero, intro and tools, then five chapters (brief, idea, proof, campaign assets, rollout) and the close. Every image not made yet is a numbered placeholder that names its file and says what to shoot. -->
+<main class="cs" data-slide="00" aria-labelledby="cs-title">
+  <!-- Hero · the photo full-bleed and as tall as the window allows, the lockup and the line pinned to its bottom-left corner. Two layers: the photo (it zooms, blurs and fades on scroll) and the lockup and line (they scroll with the page). The line is your colour-halftone artwork, cut at the word gap so it can break in two on phones; on load it is printed in from the left, a halftone wipe at 12 fps. -->
+  <section class="hero {{ heroState }}" aria-labelledby="cs-title" ref="{{ heroRef }}">
+    <header class="topbar">
+      <p class="topbar__item">Matthew Osada</p>
+      <p class="topbar__item">Unofficial concept<span class="topbar__gap" aria-hidden="true"></span>2026</p>
+    </header>
+    <div class="hero__media">
+      <img class="hero__img" src="./assets/82b2bd1e87ea688818454ab09ca26159.jpg" fetchpriority="high" alt="Three donors lie on the grass in the Massachusetts, Georgia and Arizona tees.">
+      <div class="hero__light" aria-hidden="true">
+        <img class="hero__dapple" src="./assets/c0c940cf3008e8c3a5340e7aeb44f475.jpg" alt="">
+        <img class="hero__dapple hero__dapple--b" src="./assets/c0c940cf3008e8c3a5340e7aeb44f475.jpg" alt="">
+      </div>
+      <img class="hero__img hero__tint" src="./assets/82b2bd1e87ea688818454ab09ca26159.jpg" alt="" aria-hidden="true">
+    </div>
+    <img class="hero__logo" src="./assets/22f9a788fae21d6156b3171449ef956c.png" alt="American Red Cross">
+    <h1 id="cs-title" class="hero__title"><img class="hero__line hero__line--1" src="./assets/c59e48dc9d53635f6d72f218078e13c9.png" alt="Life flows"><img class="hero__line hero__line--2" src="./assets/a9f1bfbd56554f3d8d8e426df65a43a2.png" alt="through us."></h1>
+  </section>
+  <!-- About · right under the line, from its left edge: about, objective, the facts -->
+  <div class="about-frame">
+  <section class="about" aria-label="Project overview">
+    <div class="about__col">
+      <h2 class="bar">About</h2>
+      <p class="intro__p">An unofficial campaign concept for the American Red Cross. Pairing with an existing clothing brand&nbsp;/ artist, they would offer state-exclusive, <span class="keep">limited edition</span> tee shirts only obtainable by donating blood. They are numbered to the donor, with a tag that shows they gave blood.</p>
+    </div>
+    <div class="about__col">
+      <h2 class="bar">Objective</h2>
+      <p class="intro__p">Win over young people who have never donated blood. Make getting a shirt from a respected brand feel like a no-brainer.</p>
+    </div>
+    <div class="about__col">
+      <h2 class="bar">Details</h2>
+      <dl class="meta">
+        <div class="meta__col">
+          <div><dt>Client</dt><dd>American Red Cross (unofficial)</dd></div>
+          <div><dt>Industry</dt><dd>Nonprofit, health</dd></div>
+          <div><dt>Year</dt><dd>2026</dd></div>
+        </div>
+        <div class="meta__col">
+          <div><dt>Services</dt><dd class="meta__list"><span>Strategy</span><span>Creative Direction</span><span>Apparel and Tag Design</span><span>Social and Out of Home</span><span>Spot Storyboard</span></dd></div>
+        </div>
+      </dl>
+    </div>
+  </section>
+  </div>
+  <!-- Tools · the print blue band -->
+  <div class="tools">
+    <ul class="wrap tools__list" aria-label="Tools">
+      <li class="tool"><img class="tool__logo" src="./assets/0f6a6a7dbdafad830ce2ae9c17c85d73.png" alt=""><span>Photoshop</span></li>
+      <li class="tool"><img class="tool__logo" src="./assets/f9d81d7be0d606c2bf998a3960fb68ac.png" alt=""><span>InDesign</span></li>
+      <li class="tool"><img class="tool__logo" src="./assets/15a7443116e47178fb89b3f9c2c76aea.png" alt=""><span>Figma</span></li>
+      <li class="tool"><img class="tool__logo" src="./assets/9de008903ff8f2d68349b94bb81bdfb0.png" alt=""><span>Claude Code</span></li>
+    </ul>
+  </div>
+  <!-- The brief · the story on the right, the numbers on the left, then the insight -->
+  <section class="wrap chapter brief" aria-labelledby="ch-brief" ref="{{ briefRef }}">
+    <h2 id="ch-brief" class="chapter__title"><span>The Brief</span></h2>
+    <p class="chapter__p brief__p brief__p--1">The Red Cross is warning of a national blood shortage. 2026 Summer donations marked their lowest point in four years, and young donor % has been declining since the pandemic. Yet Gen Z still shows up for causes, making up 42% of new Red Cross volunteers.</p>
+    <p class="chapter__p brief__p brief__p--2">And streetwear has moved them to donate before. In 2022, ‘Drop for Drop’ partnered with NYC brand MONO, which resulted in 84% first-time donors by offering branded shirts for a pint of blood. The results are promising, but I felt the designs <span class="peek" tabindex="0">missed the mark<span class="peek__card"><img src="./assets/c2dc5a73a5d8ae2ceee5b9eac824a4a6.jpg" alt="The Drop for Drop shirts: a red tee reading DROP FOR DROP, a white tee reading BIG DONOR ENERGY and a black tee reading DO GOOD GET GOODS, on a pattern of American Red Cross logos."></span></span>.</p>
+    <p class="chapter__p brief__p brief__p--3">To back that assumption, I showed 20 people aged 18 to 24 the Drop for Drop pieces and asked whether they’d feel compelled to donate. Three said yes. Then I showed them this concept without saying it was mine, and fifteen said yes.</p>
+    <div class="stat brief__stat brief__stat--1"><p class="stat__num" style="letter-spacing: -8.5px; font-style: italic">4 yrs</p><p class="stat__cap">Summer donations at their lowest in four years.</p></div>
+    <div class="stat brief__stat brief__stat--2"><p class="stat__num" style="font-weight: 700; font-style: italic; text-decoration-line: none">42%</p><p class="stat__cap">of new Red Cross volunteers are Gen Z.</p></div>
+    <div class="stat brief__stat brief__stat--3"><p class="stat__num" style="font-style: italic">84%</p><p class="stat__cap">of Drop for Drop donors were giving for the first time.</p></div>
+    <p class="stats__src">Sources: KBIA (Aug 2026), News3LV. Drop for Drop figures: MONO, agency-reported.</p>
+  </section>
+  <section class="statement" aria-label="The insight">
+    <div class="wrap">
+      <p class="word statement__line">Young donors won’t wear a PSA. They’ll wear a joke they’re in on.</p>
+      <div class="statement__notes">
+        <p>A “pov: you donated blood to get the shirt” TikTok passed a million views. A bandaged peach says “I donated” without a word.</p>
+        <p>The joke still has to carry proof. Nearly 70% of Gen Z donors say they’re more likely to give when they know who they’re helping, and how.</p>
+        <p class="statement__src">Sources: <span class="ph">[TikTok views]</span> · <span class="ph">[Gen Z donor survey]</span></p>
+      </div>
+    </div>
+  </section>
+  <!-- The idea · each state as a pair (the tee and its bandage), then the ladder -->
+  <section class="wrap chapter" aria-labelledby="ch-idea">
+    <h2 id="ch-idea" class="chapter__title"><span>The Idea</span></h2>
+    <p class="chapter__p">A donor-only tee for every state. The front reads I DONATED over a bandaged icon only that state would claim: a peach, a lobster, a saguaro. The back reads GEORGIA BLEEDS, or yours. You can’t buy one. You can only give for one.</p>
+    <p class="chapter__p">Each shirt is numbered to its donor, so it works as proof, not merch. Give again and the series grows. And every state drops with a local partner, a designer, a team or a musician, who brings their own crowd.</p>
+  </section>
+  <div class="pairs">
+    <figure class="pair">
+      <div class="media r-1x1 pair__tee"><img class="media__img" src="./assets/e9ce4d126143bdc82c7c6eb859fd3f06.jpg" alt="The Georgia tee, front and back, on black. The front reads I DONATED over two peaches, one bandaged, on the Georgia outline, with Life flows through us. The back reads GEORGIA BLEEDS."></div>
+      <div class="media r-16x9 pair__macro"><img class="media__img" src="./assets/a2daed90fd3a4632e3dfec3cf007d5df.jpg" alt="Close-up of the Georgia peach: a gauze pad taped over its skin, printed in halftone."></div>
+      <figcaption class="pair__cap"><strong>Georgia</strong><span>The peach. No explanation needed.</span></figcaption>
+    </figure>
+    <figure class="pair pair--flip">
+      <div class="media r-1x1 pair__tee"><img class="media__img" src="./assets/3682c19b3a07d103c506d893f99013d8.jpg" alt="The Massachusetts tee, front and back, on black. The front reads I DONATED over a lobster with a bandaged claw on the state outline, with Life flows through us. The back reads MASSACHUSETTS BLEEDS."></div>
+      <div class="media r-16x9 pair__macro"><img class="media__img" src="./assets/fe86793690befb34478cbb832a644611.jpg" alt="Close-up of the Massachusetts lobster: gauze and tape wrapped at the joint of its claw, printed in halftone."></div>
+      <figcaption class="pair__cap"><strong>Massachusetts</strong><span>Boston’s lobster, inside the state line.</span></figcaption>
+    </figure>
+    <figure class="pair">
+      <div class="media r-1x1 pair__tee"><img class="media__img" src="./assets/223964544fd08d8f050328af27c6a3d1.jpg" alt="The Arizona tee, front and back, on black. The front reads I DONATED over a saguaro bandaged at the bend of its arm, with Life flows through us. The back reads ARIZONA BLEEDS."></div>
+      <div class="media r-16x9 pair__macro"><img class="media__img" src="./assets/0b62497b96910020f54c23b75ba98504.jpg" alt="Close-up of the Arizona saguaro: gauze and tape wrapped around its arm against a blue sky, printed in halftone."></div>
+      <figcaption class="pair__cap"><strong>Arizona</strong><span>The saguaro’s raised arm is the donor pose.</span></figcaption>
+    </figure>
+  </div>
+  <p class="wrap cap"><span><strong>The bandage is the logo.</strong> Real gauze and tape at a joint, the same in every state, never retouched away.</span></p>
+  <div class="wrap ladder">
+    <div class="step"><p class="step__num">01</p><p class="step__what">The white state tee</p><p class="step__when">Your first pint.</p></div>
+    <div class="step"><p class="step__num">02</p><p class="step__what">The black colorway</p><p class="step__when">Your second.</p></div>
+    <div class="step"><p class="step__num">03</p><p class="step__what">The regular’s patch</p><p class="step__when">Your third.</p></div>
+    <p class="ladder__note">Each unlock lands when a donor can give again, about every eight weeks.</p>
+  </div>
+  <!-- The proof · the tag (your mockup), the neck label, the back -->
+  <section class="wrap chapter" aria-labelledby="ch-proof">
+    <h2 id="ch-proof" class="chapter__title"><span>The Proof</span></h2>
+    <p class="chapter__p">The hang tag is priced in blood: retail $0, cost one pint, and the number on it is yours. The yellow PAID sticker is the joke. Donors aren’t paid, and the shirt isn’t currency.</p>
+    <p class="chapter__p">The tag comes off. The neck label doesn’t. Printed inside with the donor number and size, it keeps the proof on the shirt for good: numbered, dated and non-transferable.</p>
+  </section>
+  <figure class="bento">
+    <div class="media r-a4 bento__main">
+      <img class="media__img" src="./assets/45e6cf80c57f516c4849d5ed0192dfa1.jpg" alt="The hang tag on white fabric: Life flows through us, Atlanta, Georgia. Cost: 1 pint. A yellow sticker reads Thank you, paid, for donating. Care notes, donor number 1,023 of 5,000, a barcode and the Red Cross mark.">
+    </div>
+    <div class="shot r-1x1 shot--warm shot--sm" data-file="neck-macro.jpg" role="img" aria-label="Placeholder for neck-macro.jpg: Inside the neck. Macro of the printed neck label: donor number and size over the Georgia outline. Collar folded open, soft window light.">
+      <div class="shot__frame">
+        <p class="shot__meta"><span>01</span><span>neck-macro.jpg</span><span>1:1</span></p>
+        <div class="shot__body">
+          <p class="shot__title">Inside the neck</p>
+          <p class="shot__desc">Macro of the printed neck label: donor number and size over the Georgia outline. Collar folded open, soft window light.</p>
+        </div>
+      </div>
+    </div>
+    <div class="shot r-1x1 shot--cobalt shot--sm" data-file="ga-back.jpg" role="img" aria-label="Placeholder for ga-back.jpg: Georgia, back. The tee on a hanger against a cobalt wall, GEORGIA BLEEDS across the shoulders. Straight on, centered.">
+      <div class="shot__frame">
+        <p class="shot__meta"><span>02</span><span>ga-back.jpg</span><span>1:1</span></p>
+        <div class="shot__body">
+          <p class="shot__title">Georgia, back</p>
+          <p class="shot__desc">The tee on a hanger against a cobalt wall, GEORGIA BLEEDS across the shoulders. Straight on, centered.</p>
+        </div>
+      </div>
+    </div>
+    <figcaption class="wrap cap"><span><strong>The hang tag.</strong> Atlanta, Georgia.</span><span class="cap__file">tag-mockup.jpg</span></figcaption>
+  </figure>
+  <!-- Campaign assets · stories, the bus shelter, posters, the spot -->
+  <section class="wrap chapter" aria-labelledby="ch-campaign">
+    <h2 id="ch-campaign" class="chapter__title"><span>Campaign Assets</span></h2>
+    <p class="chapter__p">Each state gets a 48-hour drop: 5,000 tees for 5,000 pints. The feed runs like a sneaker release, from the countdown to the line to a live scoreboard, then the unlock for donors who come back.</p>
+    <p class="chapter__p">Out in the world, the shirt is the poster, with barely a word added: the state, the price, the place. They go up where young donors already are: gym hallways, campus boards, booster tables.</p>
+  </section>
+  <div class="stories">
+    <div class="wrap">
+      <div class="stories__row">
+        <div class="phone">
+          <div class="shot r-9x16 shot--dark shot--sm" data-file="story-teaser.jpg" role="img" aria-label="Placeholder for story-teaser.jpg: Story: teaser. Black screen, a countdown in the print blue: 48:00:00. One line under it: Georgia drops in 48 hours.">
+            <div class="shot__frame">
+              <p class="shot__meta"><span>03</span><span>story-teaser.jpg</span><span>9:16</span></p>
+              <div class="shot__body">
+                <p class="shot__title">Story: teaser</p>
+                <p class="shot__desc">Black screen, a countdown in the print blue: 48:00:00. One line under it: Georgia drops in 48 hours.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="shot r-9x16 shot--cobalt shot--sm" data-file="story-drop.jpg" role="img" aria-label="Placeholder for story-drop.jpg: Story: drop day. The Georgia tee on cobalt, the real tag in frame. On image: GEORGIA · 48 HOURS / 5,000 TEES · 5,000 PINTS.">
+            <div class="shot__frame">
+              <p class="shot__meta"><span>04</span><span>story-drop.jpg</span><span>9:16</span></p>
+              <div class="shot__body">
+                <p class="shot__title">Story: drop day</p>
+                <p class="shot__desc">The Georgia tee on cobalt, the real tag in frame. On image: GEORGIA · 48 HOURS / 5,000 TEES · 5,000 PINTS.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="shot r-9x16 shot--dark shot--sm" data-file="story-scoreboard.jpg" role="img" aria-label="Placeholder for story-scoreboard.jpg: Story: scoreboard. A live tally on black: 1,204 / 5,000 pints. Sample numbers.">
+            <div class="shot__frame">
+              <p class="shot__meta"><span>05</span><span>story-scoreboard.jpg</span><span>9:16</span></p>
+              <div class="shot__body">
+                <p class="shot__title">Story: scoreboard</p>
+                <p class="shot__desc">A live tally on black: 1,204 / 5,000 pints. Sample numbers.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="stories__cap"><strong>Caption:</strong> Georgia drops in 48 hours. 5,000 tees. 5,000 pints. Cost: 1 pint. #LifeFlowsThroughUs</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="shot r-16x9 shot--dark shot--lg" data-file="shelter.jpg" role="img" aria-label="Placeholder for shelter.jpg: Bus shelter, at night. The Georgia poster backlit in a bus shelter: the bandaged peach, Cost: 1 pint, the drive location. Cool street light, wet pavement, nobody in frame.">
+      <div class="shot__frame">
+        <p class="shot__meta"><span>06</span><span>shelter.jpg</span><span>16:9 · full-bleed</span></p>
+        <div class="shot__body">
+          <p class="shot__title">Bus shelter, at night</p>
+          <p class="shot__desc">The Georgia poster backlit in a bus shelter: the bandaged peach, Cost: 1 pint, the drive location. Cool street light, wet pavement, nobody in frame.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="spot">
+    <div class="wrap">
+      <p class="spot__head"><span><strong>The spot.</strong> One volunteer, from an empty feed to a wall of names.</span><span>30 seconds · vertical · no voiceover</span></p>
+      <div class="spot__grid">
+        <div class="spot__beats">
+          <div class="beat"><p class="beat__time">0–5 s</p><p class="word beat__line">“Georgia drops in 48 hours.”</p><p class="beat__shot">A phone counts down.</p></div>
+          <div class="beat"><p class="beat__time">5–12 s</p><p class="word beat__line">“No restock.”</p><p class="beat__shot">The line wraps around the building.</p></div>
+        </div>
+        <div class="shot r-9x16 shot--dark shot--sm spot__film" data-file="spot.mp4" role="img" aria-label="Placeholder for spot.mp4: The spot, 0:30. Vertical, for Instagram and TikTok. Export a 9:16 still for the poster frame.">
+          <div class="shot__frame">
+            <p class="shot__meta"><span>07</span><span>spot.mp4</span><span>9:16</span></p>
+            <div class="shot__body">
+              <p class="shot__title">The spot, 0:30</p>
+              <p class="shot__desc">Vertical, for Instagram and TikTok. Export a 9:16 still for the poster frame.</p>
+            </div>
+          </div>
+          <span class="spot__play" aria-hidden="true"></span>
+        </div>
+        <div class="spot__beats">
+          <div class="beat"><p class="beat__time">12–22 s</p><p class="word beat__line">“Cost: 1 pint.”</p><p class="beat__shot">Sleeve up. The gauze, then the tag.</p></div>
+          <div class="beat"><p class="beat__time">22–30 s</p><p class="word beat__line">“Life flows through us.”</p><p class="beat__shot">A donor holds the shirt up. End card: <span class="ph">[Drive link]</span>.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Rollout · the four weeks, then what gets measured -->
+  <section class="wrap chapter" aria-labelledby="ch-rollout">
+    <h2 id="ch-rollout" class="chapter__title"><span>Rollout</span></h2>
+    <p class="chapter__p">Week one, the posters and countdown go up. Week two, the 48-hour drop at real drives. Week three, donor posts and reposts. Around week ten, when donors can give again, the second pint unlocks.</p>
+    <p class="chapter__p">The pilot runs three shirts at the same drive: a plain Red Cross tee, a designer-led state tee and a partner collab. Whichever brings the most donors back within 90 days picks the design.</p>
+  </section>
+  <div class="wrap rollout">
+    <ol class="timeline">
+      <li class="week"><p class="week__when">Week 1</p><p class="week__what">Teaser: posters and the countdown.</p></li>
+      <li class="week"><p class="week__when">Week 2</p><p class="week__what">The drop: tees at real drives.</p></li>
+      <li class="week"><p class="week__when">Week 3</p><p class="week__what">Content: donor posts and reposts.</p></li>
+      <li class="week"><p class="week__when">Week 10</p><p class="week__what">Repeat unlock: pint two opens.</p></li>
+    </ol>
+    <div class="proofs">
+      <div class="proof">
+        <p class="proof__label">The number that matters</p>
+        <p class="proof__big">90-day repeat rate</p>
+        <p class="proof__text">Also tracked: first-time share, appointments against baseline, and content volume.</p>
+      </div>
+      <div class="proof">
+        <p class="proof__label">To beat</p>
+        <p class="proof__text">Snoopy: appointments up 40% in week one, and 75% of donors under 34. <span class="ph">[Source]</span></p>
+        <p class="proof__text">Drop for Drop: 84% first-time donors, agency-reported.</p>
+      </div>
+      <div class="proof">
+        <p class="proof__label">The risk</p>
+        <p class="proof__text">FDA guidance weighs whether a donor could easily resell an incentive, and a hyped shirt will get resold. A numbered, dated, non-transferable tag keeps it proof, not currency.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Closing · what I learned, the last line, contact, the unofficial line -->
+  <section class="wrap closing" aria-labelledby="cs-close">
+    <dl class="reflect">
+      <div class="reflect__item"><dt>What I learned</dt><dd>The best idea in the category already existed. The open problem is the second donation.</dd></div>
+      <div class="reflect__item"><dt>What I’d test next</dt><dd>Whether a collection brings donors back, not just a drop.</dd></div>
+      <div class="reflect__item"><dt>What I’d change</dt><dd>Run the three-shirt pilot first and let it choose the design.</dd></div>
+    </dl>
+    <h2 id="cs-close" class="word closing__line">Want to see the rest of the work?</h2>
+    <ul class="contacts" aria-label="Contact">
+      <li><span class="ph">[Email]</span></li>
+      <li><span class="ph">[LinkedIn]</span></li>
+      <li><a href="https://mbogfx.org">mbogfx.org</a></li>
+    </ul>
+    <footer class="footer">
+      <p class="footer__fine">Unofficial concept. Not affiliated with or endorsed by the American Red Cross. Statistics are cited where they appear; donor numbers and counts are sample content.</p>
+      <p class="footer__year">mbogfx · 2026</p>
+    </footer>
+  </section>
+  <!-- The soft, bled edge on the brief's figures, like the line in the hero: a blurred copy sits under the type and the type itself fades out toward its edges, so the letters go soft at the edge and the dot screen fades out past them instead of stopping hard. -->
+  <svg class="fx" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="bleed" x="-12%" y="-20%" width="124%" height="140%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.6" result="soft"></feGaussianBlur>
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.6" result="fade"></feGaussianBlur>
+      <feComposite in="SourceGraphic" in2="fade" operator="in" result="crisp"></feComposite>
+      <feMerge><feMergeNode in="soft"></feMergeNode><feMergeNode in="crisp"></feMergeNode></feMerge>
+    </filter>
+  </svg>
+  <div class="edge-blur" aria-hidden="true"></div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":8000}}'>
+// Three jobs. The hero's entrance: without this script the CSS still plays it
+// on load; with it, the photo, the lockup and the line wait until their
+// images have loaded, so nothing develops empty. And the brief: each
+// paragraph is set as a clean rectangle, its last line run out to the edge.
+// And the wheel: the page eases a beat behind it instead of jumping.
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { hero: '' };
+    this.heroRef = (el) => { this.heroEl = el; };
+    this.briefRef = (el) => { this.briefEl = el; };
+  }
+
+  componentDidMount() {
+    this.watchBrief();
+    this.startHero();
+    this.startGlide();
+  }
+
+  // A little weight on the wheel: instead of jumping to where the wheel
+  // sends it, the page eases there, so it glides a beat behind your hand.
+  // Only when the page itself scrolls (on the canvas it doesn't, so the
+  // canvas's own panning is untouched), never with reduced motion, and the
+  // keys, the scroll bar, touch and pinch-zoom are left exactly as they are.
+  startGlide() {
+    if (!window.requestAnimationFrame) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const root = document.scrollingElement || document.documentElement;
+    const ease = 0.13;                      // share of the way covered per 60 Hz frame
+    let target = 0, current = 0, frame = 0, last = 0;
+    const room = () => root.scrollHeight - window.innerHeight;
+    const step = (now) => {
+      const dt = last ? Math.min(64, now - last) : 16.7;
+      last = now;
+      current += (target - current) * (1 - Math.pow(1 - ease, dt / 16.7));
+      if (Math.abs(target - current) < 0.4) current = target;
+      window.scrollTo(0, current);
+      if (current !== target) frame = requestAnimationFrame(step);
+      else { frame = 0; last = 0; }
+    };
+    const wheel = (e) => {
+      if (e.defaultPrevented || e.ctrlKey || e.metaKey) return;
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      if (room() <= 1) return;
+      for (let el = e.target; el && el.nodeType === 1 && el !== document.body; el = el.parentElement) {
+        const oy = getComputedStyle(el).overflowY;
+        if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight + 1) return;
+      }
+      const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1;
+      if (!frame) { current = target = window.scrollY; }
+      target = Math.max(0, Math.min(room(), target + e.deltaY * unit));
+      e.preventDefault();
+      if (!frame) frame = requestAnimationFrame(step);
+    };
+    // Anything else that moves the page (a key, the scroll bar) wins: the glide lets go.
+    const moved = () => {
+      if (frame && Math.abs(window.scrollY - current) > 3) {
+        cancelAnimationFrame(frame); frame = 0; last = 0;
+      }
+    };
+    window.addEventListener('wheel', wheel, { passive: false });
+    window.addEventListener('scroll', moved, { passive: true });
+    this.glideStop = () => {
+      window.removeEventListener('wheel', wheel);
+      window.removeEventListener('scroll', moved);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }
+
+  // Re-set the brief when its width changes or the fonts arrive. While a
+  // window is being dragged it waits until the dragging stops.
+  watchBrief() {
+    const box = this.briefEl;
+    if (!box) return;
+    const run = () => { this.briefTimer = 0; if (!this.gone) this.squareParagraphs(); };
+    const soon = (wait) => {
+      clearTimeout(this.briefTimer);
+    if (this.lab) this.lab.remove();
+      this.briefTimer = setTimeout(run, wait || 0);
+    };
+    this.queueBrief = soon;
+    soon();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => soon());
+    if (window.ResizeObserver) {
+      let width = -1;
+      this.briefWatch = new ResizeObserver((entries) => {
+        const w = Math.round(entries[0].contentRect.width);
+        if (w === width) return;
+        const first = width < 0;
+        width = w;
+        soon(first ? 0 : 140);
+      });
+      this.briefWatch.observe(box);
+    } else {
+      const resized = () => soon(140);
+      window.addEventListener('resize', resized);
+      this.briefUnwatch = () => window.removeEventListener('resize', resized);
+    }
+  }
+
+  // Each paragraph is justified, and its last line is run out to the edge
+  // too, the way a typesetter squares a block. Two things are varied: the
+  // spacing of each paragraph (word spacing and a hair of letter spacing,
+  // smallest change first) and the width of the column the three share
+  // (its left edge moves in or out, by at most a column, so they keep one
+  // left and one right edge). The trying is done on hidden copies a little at a time,
+  // so nothing stalls, then the gentlest setting that squares all three is
+  // put on the real paragraphs. Then each figure is moved so the middle of
+  // its digits sits on the middle of its paragraph (cap height of the first
+  // line to the baseline of the last). On a phone the copy stays ragged and
+  // the figures stack.
+  squareParagraphs() {
+    const box = this.briefEl;
+    const paras = Array.prototype.slice.call(box.querySelectorAll('.brief__p'));
+    const stats = Array.prototype.slice.call(box.querySelectorAll('.brief__stat'));
+    const job = (this.briefJob = (this.briefJob || 0) + 1);
+    if (this.lab) { this.lab.remove(); this.lab = null; }
+    if (!paras.length || (window.matchMedia && window.matchMedia('(max-width: 640px)').matches)) {
+      this.setBrief(paras, stats, null);
+      return;
+    }
+
+    const fill = (el) => {
+      const rects = this.textRects(el);
+      const last = rects[rects.length - 1];
+      const r = el.getBoundingClientRect();
+      return last ? (last.right - r.left) / r.width : 0;
+    };
+    // t runs from -1 (tightest: word spaces -0.04em, letters -0.02em) to 1
+    // (loosest: word spaces +0.08em, letters +0.025em).
+    const spacing = (el, t) => {
+      el.style.wordSpacing = t ? (t * (t < 0 ? 0.04 : 0.08)).toFixed(3) + 'em' : '';
+      el.style.letterSpacing = t ? (t * (t < 0 ? 0.02 : 0.025)).toFixed(4) + 'em' : '';
+    };
+    const tries = [0];
+    for (let k = 1; k <= 10; k++) tries.push(k / 10, -k / 10);
+
+    // The full width of columns 8 to 12, whatever inset is on them now.
+    const now = parseFloat(paras[0].style.getPropertyValue('--brief-inset')) || 0;
+    const full = paras[0].getBoundingClientRect().width + now;
+    const cs = getComputedStyle(box);
+    const gap = parseFloat(cs.columnGap) || 48;
+    const column = (full - 4 * gap) / 5 + gap;
+    const insets = [0];
+    for (let d = 2; d <= column; d += 2) insets.push(-d, d);
+
+    const lab = (this.lab = document.createElement('div'));
+    lab.setAttribute('aria-hidden', 'true');
+    lab.style.cssText = 'position:absolute;left:0;top:0;width:' + full + 'px;height:1px;contain:strict;visibility:hidden;pointer-events:none;';
+    const copies = paras.map((p) => {
+      const c = p.cloneNode(true);
+      c.removeAttribute('id');
+      Array.prototype.forEach.call(c.querySelectorAll('img, .peek__card'), (n) => n.remove());
+      c.style.cssText = 'margin:0;text-align-last:auto;';
+      lab.appendChild(c);
+      return c;
+    });
+    box.appendChild(lab);
+
+    const misses = paras.map(() => 0);
+    let pick = null, fallback = null, next = 0;
+    const tryInset = (inset, all) => {
+      // Hardest paragraph first, so a width that can't work is dropped fast.
+      const order = copies.map((c, i) => i).sort((x, y) => misses[y] - misses[x]);
+      const found = [], good = [];
+      let worst = 1;
+      for (const i of order) {
+        const c = copies[i];
+        c.style.width = (full - inset - 0.25) + 'px';
+        let best = { f: -1, t: 0 };
+        good[i] = [];
+        for (const t of tries) {
+          spacing(c, t);
+          const f = fill(c);
+          if (f > best.f) best = { f: f, t: t };
+          if (f >= 0.975) good[i].push({ f: f, t: t });
+        }
+        found[i] = best;
+        worst = Math.min(worst, best.f);
+        if (!good[i].length) { misses[i]++; if (!all) break; }
+      }
+      if (worst >= 0.975) {
+        // Of the spacings that square all three, keep the most even texture:
+        // the least difference between the paragraphs, then the least change.
+        const choose = (i, chosen) => {
+          if (i === good.length) {
+            const ts = chosen.map((x) => x.t);
+            const cost = Math.max.apply(null, ts) - Math.min.apply(null, ts) +
+              Math.max.apply(null, ts.map(Math.abs)) + 0.5 * Math.abs(inset) / column;
+            if (!pick || cost < pick.cost) pick = { inset: inset, found: chosen.slice(), cost: cost };
+            return;
+          }
+          for (const g of good[i]) { chosen.push(g); choose(i + 1, chosen); chosen.pop(); }
+        };
+        choose(0, []);
+      } else if (all) {
+        fallback = { inset: inset, found: found, worst: worst };
+      }
+    };
+    const slice = () => {
+      if (job !== this.briefJob || this.gone) return;
+      if (!lab.isConnected) { this.lab = null; this.queueBrief(); return; }
+      const end = performance.now() + 8;
+      while (next < insets.length && performance.now() < end) { tryInset(insets[next], next === 0); next++; }
+      if (next < insets.length) { this.briefTimer = setTimeout(slice, 0); return; }
+      lab.remove();
+      this.lab = null;
+      this.setBrief(paras, stats, pick || fallback, spacing);
+    };
+    slice();
+  }
+
+  textRects(el) {
+    const pr = el.getBoundingClientRect();
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    return Array.prototype.filter.call(range.getClientRects(), (r) =>
+      r.width && r.height && r.left >= pr.left - 2 && r.right <= pr.right + 2);
+  }
+
+  setBrief(paras, stats, pick, spacing) {
+    paras.forEach((p, i) => {
+      const got = pick && pick.found[i];
+      if (pick && pick.inset) p.style.setProperty('--brief-inset', pick.inset + 'px');
+      else p.style.removeProperty('--brief-inset');
+      if (got) spacing(p, got.t);
+      else { p.style.wordSpacing = ''; p.style.letterSpacing = ''; }
+      p.style.textAlignLast = got && got.f >= 0.9 ? 'justify' : '';
+    });
+    stats.forEach((s) => { s.style.translate = ''; });
+    if (pick) this.centerStats(paras, stats);
+  }
+
+  centerStats(paras, stats) {
+    const ruler = (this.ruler = this.ruler || document.createElement('canvas').getContext('2d'));
+    const measure = (el, sample) => {
+      const cs = getComputedStyle(el);
+      const size = parseFloat(cs.fontSize);
+      ruler.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+      const m = ruler.measureText(sample);
+      return {
+        ascent: m.fontBoundingBoxAscent != null ? m.fontBoundingBoxAscent : 0.73 * size,
+        up: m.actualBoundingBoxAscent != null ? m.actualBoundingBoxAscent : 0.65 * size,
+        down: m.actualBoundingBoxDescent || 0,
+      };
+    };
+    stats.forEach((s, i) => {
+      const p = paras[i];
+      const num = s.querySelector('.stat__num');
+      if (!p || !num) return;
+      s.style.translate = 'none';
+      const lines = this.textRects(p);
+      const numRects = this.textRects(num);
+      if (!lines.length || !numRects.length) { s.style.translate = ''; return; }
+      const tops = lines.map((r) => r.top);
+      const text = measure(p, 'H');
+      const pMid = (Math.min.apply(null, tops) + text.ascent - text.up + Math.max.apply(null, tops) + text.ascent) / 2;
+      const digits = (num.textContent.replace(/[^0-9%]/g, '') || num.textContent).trim();
+      const fig = measure(num, digits);
+      const baseline = numRects[0].top + fig.ascent;
+      const nMid = baseline + (fig.down - fig.up) / 2;
+      s.style.translate = '0 ' + (pMid - nMid).toFixed(1) + 'px';
+    });
+  }
+
+  startHero() {
+    const hero = this.heroEl;
+    if (!hero || !window.Promise) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    this.setState({ hero: 'is-held' });
+    const ready = (img) => new Promise((done) => {
+      if (img.complete && img.naturalWidth) return done();
+      img.addEventListener('load', done, { once: true });
+      img.addEventListener('error', done, { once: true });
+    }).then(() => (img.decode ? img.decode().catch(() => null) : null));
+    const imgs = Array.prototype.filter.call(hero.querySelectorAll('img'), (img) => !img.closest('.hero__light'));
+    // the line's reveal frames live in its mask; load those too
+    hero.querySelectorAll('.hero__line').forEach((line) => {
+      const css = getComputedStyle(line);
+      const found = /url\(["']?([^"')]+)["']?\)/.exec(css.webkitMaskImage || css.maskImage || '');
+      if (found) { const frames = new Image(); frames.src = found[1]; imgs.push(frames); }
+    });
+    Promise.race([Promise.all(imgs.map(ready)), new Promise((done) => setTimeout(done, 2500))]).then(() => {
+      if (!this.gone) this.setState({ hero: 'is-on' });
+    });
+  }
+
+  // A re-render may rewrite the inline spacing, so set the brief again after one.
+  componentDidUpdate() {
+    if (this.queueBrief) this.queueBrief();
+  }
+
+  componentWillUnmount() {
+    this.gone = true;
+    if (this.briefWatch) this.briefWatch.disconnect();
+    if (this.briefUnwatch) this.briefUnwatch();
+    clearTimeout(this.briefTimer);
+    if (this.lab) this.lab.remove();
+    if (this.glideStop) this.glideStop();
+  }
+
+  renderVals() {
+    return { heroState: this.state.hero, heroRef: this.heroRef, briefRef: this.briefRef };
+  }
+}
+</script>
+</body>
+</html>
